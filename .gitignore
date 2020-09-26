@@ -203,3 +203,6 @@ fabric.properties
 
 # place to store app secrets
 app_secrets/
+
+# token.pickle for oauth
+token.pickle
