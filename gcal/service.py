@@ -14,6 +14,10 @@ class ServiceProvider:
     _service = None
 
     @staticmethod
+    def init():
+        return ServiceProvider.get_authenticated_service() is not None
+
+    @staticmethod
     def get_authenticated_service():
         if not ServiceProvider._service:
             ServiceProvider._service = ServiceProvider._get_authenticated_service()

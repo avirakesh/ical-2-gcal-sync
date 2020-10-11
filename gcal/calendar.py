@@ -8,6 +8,10 @@ class SelectedCalProvider:
     _selected_calendar = None
 
     @staticmethod
+    def init():
+        return SelectedCalProvider.get_selected_calendar() is not None
+
+    @staticmethod
     def _get_selected_calendar():
         service = ServiceProvider.get_authenticated_service()
         page_token = None
@@ -23,7 +27,7 @@ class SelectedCalProvider:
                 break
 
         if len(calendars) == 0:
-            print('Couldn\'t find calendars')
+            print("Couldn't find calendars")
             return None
 
         selected_calendar = None
@@ -38,8 +42,28 @@ class SelectedCalProvider:
             if not selected_calendar:
                 print('Could not find selected calendar.')
                 print('Ensure that ' + _SELECTED_CALENDAR_FILE_PATH + ' contains a valid calendar ID')
+        else:
+            # Ask user to select calendar
+            selected_calendar = SelectedCalProvider.prompt_user_for_cal(calendars)
 
         return selected_calendar
+
+    @staticmethod
+    def prompt_user_for_cal(calendars):
+        cal_array = [cal for cal in calendars.items()]
+        ctr = 1
+        print("Select the calendar to sync to")
+        print("Available Calendars")
+        for cal in cal_array:
+            print("  " + str(ctr) + ". " + cal[1])
+            ctr += 1
+        selected_idx = int(input(("Choose calendar [1..." + str(ctr - 1) + "]: ")))
+        selected_cal = cal_array[selected_idx - 1]
+
+        with open(_SELECTED_CALENDAR_FILE_PATH, 'w') as f_cal:
+            f_cal.writelines([selected_cal[0]])
+
+        return {selected_cal[0]: selected_cal[1]}
 
     @staticmethod
     def get_selected_calendar():
