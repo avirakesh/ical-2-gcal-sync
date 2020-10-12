@@ -1,14 +1,16 @@
 from gcal.calendar import SelectedCalProvider
-from gcal.service import ServiceProvider
+from ical.calendar import ICalManager
+
 
 def init_components():
-    ServiceProvider.init()
     SelectedCalProvider.init()
+    ICalManager.init()
+
 
 def main():
     init_components()
 
-    print(SelectedCalProvider.get_selected_calendar())
+    ICalManager.get_ical_manager().get_cal()
 
 
 if __name__ == '__main__':

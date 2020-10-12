@@ -9,7 +9,8 @@ class SelectedCalProvider:
 
     @staticmethod
     def init():
-        return SelectedCalProvider.get_selected_calendar() is not None
+        return ServiceProvider.init() and\
+               SelectedCalProvider.get_selected_calendar() is not None
 
     @staticmethod
     def _get_selected_calendar():

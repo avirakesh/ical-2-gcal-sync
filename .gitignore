@@ -201,8 +201,10 @@ fabric.properties
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
 
-# place to store app secrets
+# app specific dirs
 app_secrets/
+seen_icals/
+proto/
 
 # token.pickle for oauth
 token.pickle

@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package calendar_proto;
+
+message Calendar {
+  repeated Event events = 1;
+
+  message Event {
+    string name = 1;
+    uint64 begin_time = 2;
+    uint64 end_time = 3;
+    uint64 duration = 4;
+    string description = 5;
+    string location = 6;
+    repeated Attendee attendees = 7;
+    string status = 8;
+  }
+
+  message Attendee {
+    string email = 1;
+    string name = 2;
+  }
+}
